@@ -22,6 +22,13 @@
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find mybot_description)/urdf/mybot.xacro'"/>
 
   <node name="mybot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-   args="-urdf -param robot_description -x 0 -y 0 -z 0.65 -model mybot" />
+   args="-urdf -param robot_description -x 0 -y 0 -z 1.15 -model mybot" />
+
+  <include file="$(find mybot_control)/launch/myrobot_control.launch">
+  </include>
+
+  <node name="mybot_contol" pkg="mybot_control" type="quat_to_euler.py" output="screen"/>
+
+  <node name="unpause_physics" pkg="mybot_control" type="unpause_physics.sh" output="screen"/>
 
 </launch>
